@@ -878,7 +878,9 @@ correct_plug_type:
 			mbhc->mbhc_cb->bcs_enable(mbhc, false);
 
 	timeout = jiffies + msecs_to_jiffies(HS_DETECT_PLUG_TIME_MS);
-	while (!time_after(jiffies, timeout) && mbhc->slow_insertion) {
+  /* slow insertion leads to compile failures on newer systems */
+	// while (!time_after(jiffies, timeout) && mbhc->slow_insertion) {
+	while (!time_after(jiffies, timeout)) {
 		if (mbhc->hs_detect_work_stop) {
 			pr_debug("%s: stop requested: %d\n", __func__,
 					mbhc->hs_detect_work_stop);
